@@ -14,10 +14,10 @@ public class EmailJobProducer {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    public void sendJob(Long emailJobId) {
+    public void sendJob(Long emailJob) {
         rabbitTemplate.convertAndSend(
                 RabbitMq.EMAIL_QUEUE,
-                emailJobId
+                emailJob
         );
     }
 

@@ -1,12 +1,19 @@
-
 package com.example.emailqueue.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import com.example.emailqueue.dto.CreateEmailJobRequest;
 import com.example.emailqueue.entity.EmailJob;
 import com.example.emailqueue.service.EmailJobService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/email-jobs")
@@ -20,22 +27,14 @@ public class EmailJobController {
 
     @PostMapping
     public ResponseEntity<EmailJob> createJobs(
-            @RequestBody EmailJob emailJob) {
+            @Valid @RequestBody CreateEmailJobRequest request) {
 
-        EmailJob savedJob =
-                emailJobService.createEmailJob(emailJob);
-
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(savedJob);
+        EmailJob savedJob = emailJobService.createEmailJob(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedJob);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<EmailJob> getJobById(
-            @PathVariable Long id) {
-
-        EmailJob job = emailJobService.getJobById(id);
-
-        return ResponseEntity.ok(job);
+    public ResponseEntity<EmailJob> getJobById(@PathVariable Long id) {
+        return ResponseEntity.ok(emailJobService.getJobById(id));
     }
 }
