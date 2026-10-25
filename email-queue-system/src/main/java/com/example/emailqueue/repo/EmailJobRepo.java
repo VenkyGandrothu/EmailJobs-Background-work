@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.example.emailqueue.entity.EmailJob;
 
 @Repository 
-public interface EmailJobRepo extends JpaRepository<Long, EmailJob> {
+public interface EmailJobRepo extends JpaRepository<EmailJob, Long> {
     
 }
