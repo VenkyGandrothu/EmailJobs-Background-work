@@ -7,18 +7,18 @@ import com.example.emailqueue.config.RabbitMq;
 
 @Component
 public class EmailJobProducer {
-    
+
     private final RabbitTemplate rabbitTemplate;
 
     public EmailJobProducer(RabbitTemplate rabbitTemplate) {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    public void sendJob(Long emailJob) {
+    public void sendJob(Long emailJobId) {
         rabbitTemplate.convertAndSend(
-                RabbitMq.EMAIL_QUEUE,
-                emailJob
+                RabbitMq.EMAIL_EXCHANGE,
+                RabbitMq.EMAIL_ROUTING_KEY,
+                emailJobId
         );
     }
-
 }

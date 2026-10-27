@@ -21,6 +21,7 @@ public class EmailJob {
     private String subject;
     private String body;
     private int attempts = 0;
+    private String lastError;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     @Enumerated(EnumType.STRING)
@@ -79,6 +80,14 @@ public class EmailJob {
 
     public void setAttempts(int attempts) {
         this.attempts = attempts;
+    }
+
+    public String getLastError() {
+        return lastError;
+    }
+
+    public void setLastError(String lastError) {
+        this.lastError = lastError;
     }
 
     public LocalDateTime getCreatedAt() {

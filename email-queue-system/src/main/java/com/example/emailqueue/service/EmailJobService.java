@@ -1,5 +1,7 @@
 package com.example.emailqueue.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.example.emailqueue.dto.CreateEmailJobRequest;
@@ -37,5 +39,12 @@ public class EmailJobService {
     public EmailJob getJobById(Long id) {
         return emailJobRepo.findById(id)
                 .orElseThrow(() -> new EmailJobNotFoundException(id));
+    }
+
+    public List<EmailJob> getJobs(EmailJobStatus status) {
+        if (status == null) {
+            return emailJobRepo.findAll();
+        }
+        return emailJobRepo.findByStatus(status);
     }
 }
